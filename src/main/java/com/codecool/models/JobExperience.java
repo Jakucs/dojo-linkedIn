@@ -1,6 +1,7 @@
 package com.codecool.models;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 public class JobExperience {
@@ -8,22 +9,15 @@ public class JobExperience {
     private int months;
     private Set<Technology> technologies;
 
-    public JobExperience(LocalDate startDate){
-        this.startDate = startDate;
-    }
-
     public JobExperience(LocalDate startDate, int months, Set<Technology> technologies){
         this.startDate = startDate;
         this.months = months;
-        this.technologies = technologies;
+        this.technologies = new HashSet<>(technologies); //Másolatot készít
     }
 
-    public void addTechnology(Technology technology){
-        this.technologies.add(technology);
-    }
-
-    public void setMonths(int month){
-        this.months = month;
+    public JobExperience(LocalDate startDate){
+        this.startDate = startDate;
+        this.technologies = new HashSet<>();
     }
 
     public LocalDate getStartDate(){
@@ -35,7 +29,19 @@ public class JobExperience {
     }
 
     public Set<Technology> getTechnologies(){
-        return this.technologies;
+         return new HashSet<>(this.technologies);
     }
+
+    public void setDuration(int months){
+        if(months<1){
+            throw new IllegalArgumentException("Duration can't be negative.");
+        }
+        this.months = months;
+    }
+
+    public void addTechnology(Technology technology){
+        this.technologies.add(technology);
+    }
+
 
 }

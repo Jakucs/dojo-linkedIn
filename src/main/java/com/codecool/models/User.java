@@ -8,34 +8,23 @@ import java.util.List;
 public class User {
     private String name;
     private Role role;
-    private final List<JobExperience> experiences;
+    private List<JobExperience> experiences;
 
-    User(String name){
+    public User(String name){
         this.name = name;
         this.experiences = new ArrayList<>();
     }
 
-    User(String name, Role role){
+    public User(String name, Role role){
         this.name = name;
         this.role = role;
         this.experiences = new ArrayList<>();
     }
 
-    User(String name, Role role, List<JobExperience> experiences){
+    public User(String name, Role role, JobExperience experience){
         this.name = name;
         this.role = role;
-        this.experiences = experiences;
-    }
-
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public void setRole(Role role){
-        this.role = role;
-    }
-
-    public void addExperiences(JobExperience experience){
+        this.experiences = new ArrayList<>();
         this.experiences.add(experience);
     }
 
@@ -47,21 +36,33 @@ public class User {
         return this.role;
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void setRole(Role role){
+        this.role = role;
+    }
+
+    public void addExperience(JobExperience experience){
+        this.experiences.add(experience);
+    }
+
     public List<JobExperience> getExperiences(){
-        return Collections.unmodifiableList(experiences);
+        return Collections.unmodifiableList(this.experiences);
     }
 
-    public int getTotalExperienceInMonths(){
-        int total = 0;
-        for(JobExperience exp: experiences){
-            total+=exp.getMonths();
+    public int getUserExperiencesInMonths(){
+        int months = 0;
+        for(JobExperience experience:experiences){
+            months += experience.getMonths();
         }
-        return total;
+        return months;
     }
 
-    public boolean hasTechnology(Technology technology){
-        for(JobExperience exp: experiences){
-            if(exp.getTechnologies().contains((technology))){
+    public boolean checkHasTechnology(Technology technology){
+        for(JobExperience experience : experiences){
+            if(experience.getTechnologies().contains(technology)){
                 return true;
             }
         }
