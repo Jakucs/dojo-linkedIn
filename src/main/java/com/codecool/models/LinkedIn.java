@@ -45,7 +45,7 @@ public class LinkedIn {
 
     public List<User> searchUsersByRoleAndMinimumYearsOfExperience(Role role, int yearsOfExperience){
         if(yearsOfExperience<=0){
-            throw new IllegalArgumentException('year can t be null');
+            throw new IllegalArgumentException("year can t be null");
         }
         List<User> users = new ArrayList<>();
         int monthsOfExperience = yearsOfExperience*12;
